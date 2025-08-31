@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BusinessAi - Premium Subscription Plans">
+    <meta name="keywords" content="BusinessAi, AI, automation, analytics, premium, API, subscription">
+    <meta name="author" content="BusinessAi Team">
+    <title>Subscription Plans - BusinessAi</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00c6ff;
+            --secondary-color: #0072ff;
+            --dark-bg: #0a0b0d;
+            --darker-bg: #111;
+            --card-bg: #1a1a2e;
+            --text-light: #ffffff;
+            --text-muted: #b0b0b0;
+            --accent-color: #00aaff;
+            --premium-color: #d4af37;
+            --premium-gold: #d4af37;
+            --gold-light: #f6e6b3;
+            --gold-dark: #b8860b;
+            --enterprise-color: #9d4edd;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --code-bg: #1e1e2d;
+            --ozark-color: #00c6ff;
+            --ozark-plus-color: #d4af37;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --gradient-premium: linear-gradient(135deg, var(--premium-gold), var(--gold-dark));
+            --gradient-bg: linear-gradient(to bottom, #0a0b0d, #0d1a26);
+        }
+
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--premium-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-text {
+            font-size: 1rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 10, 20, 0.9), rgba(0, 60, 100, 0.7)),
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') no-repeat center center/cover;
+            z-index: -2;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary-color), var(--premium-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--text-light);
+            opacity: 0.9;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 198, 255, 0.5);
+        }
+
+        .btn-premium {
+            background: var(--gradient-premium);
+            color: var(--dark-bg);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--text-light);
+            box-shadow: 0 8px 25px rgba(0, 198, 255, 0.3);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        /* Premium Info Section */
+        .premium-info {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(17, 17, 34, 0.8));
+            border-radius: 20px;
+            padding: 60px;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .premium-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+
+        .premium-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--premium-gold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .premium-info p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight {
+            color: var(--premium-gold);
+            font-weight: 600;
+        }
+
+        /* Feature Cards Section */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(17, 17, 34, 0.8));
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-premium);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--premium-gold);
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(17, 17, 34, 0.8));
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        .pricing-card.premium::before {
+            background: var(--gradient-premium);
+        }
+
+        .pricing-card.premium {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+            transform: scale(1.03);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-card.premium:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+        }
+
+        .pricing-card.premium .price {
+            color: var(--premium-gold);
+        }
+
+        .price-currency {
+            font-size: 1.5rem;
+            margin-right: 4px;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-left: 4px;
+            font-weight: 400;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .pricing-card li {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            padding-left: 30px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .pricing-card li:hover {
+            color: var(--text-light);
+        }
+
+        .pricing-card li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .pricing-card.premium li:before {
+            content: '⚡';
+            color: var(--premium-gold);
+        }
+
+        /* Features Comparison */
+        .features-comparison {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(17, 17, 34, 0.8));
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .features-comparison h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .features-comparison h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .feature-name {
+            font-weight: 500;
+        }
+
+        .feature-value {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .feature-value.yes {
+            color: #4CAF50;
+        }
+
+        .feature-value.no {
+            color: #F44336;
+        }
+
+        .feature-value.ozark {
+            color: var(--ozark-color);
+        }
+
+        .feature-value.ozark-plus {
+            color: var(--ozark-plus-color);
+            font-weight: 600;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            opacity: 0.1;
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        .float-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .float-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            right: 5%;
+            background: linear-gradient(45deg, var(--premium-gold), var(--gold-dark));
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(20px);
+            }
+        }
+
+        /* Premium Avatar */
+        .premium-avatar {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--premium-gold), var(--gold-dark));
+            box-shadow: 0 0 0 3px var(--premium-gold), 0 0 20px rgba(212, 175, 55, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .premium-avatar img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            color: var(--text-light);
+            padding: 80px 20px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: left;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-column a i {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-column a:hover i {
+            transform: translateX(3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .premium-info {
+                padding: 40px;
+            }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .pricing-card.premium {
+                transform: scale(1);
+            }
+
+            .pricing-card.premium:hover {
+                transform: translateY(-10px);
+            }
+            
+            .feature-value {
+                text-align: center;
+                padding-left: 0;
+            }
+            
+            .premium-avatar {
+                top: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .premium-info {
+                padding: 30px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .premium-avatar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="floating-element float-1"></div>
+    <div class="floating-element float-2"></div>
+    
+    
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Loading Subscription Plans</div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>BusinessAi Subscription Plans</h1>
+            <p>Unlock the full potential of AI-driven business solutions with our premium subscription options</p>
+            <div class="hero-btns">
+                <a href="#plans" class="btn btn-primary">View Plans</a>
+                <a href="login-signup.html" class="btn btn-outline">Sign Up Free</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Premium Info Section -->
+        <section class="premium-info">
+            <h2>Why Choose BusinessAi <span class="highlight">Ozark+</span>?</h2>
+            <p>Our premium Ozark+ plan gives you access to The Synch Engine, allowing you to run multiple tasks simultaneously. Create businesses, manage investments, and get advanced AI assistance all at the same time.</p>
+            <a href="#plans" class="btn btn-premium">Explore Premium Features</a>
+        </section>
+
+        <!-- Feature Cards Section -->
+        <section class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Unlimited Chat</h3>
+                <p>Talk to the AI anytime, without limits. Ask questions, get advice, brainstorm ideas, and receive detailed responses instantly. The AI adapts to your style and context to give smarter, personalized answers.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Comp-Maker</h3>
+                <p>Create micro-businesses or small companies easily. Ozark+ helps with the full setup: structure, basic operations, and initial planning. It can even suggest branding ideas, target audiences, and launch strategies automatically.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Trade Board</h3>
+                <p>Buy, sell, and manage stocks, crypto, and other assets in real-time. Track markets, analyze trends, and execute trades quickly. The system can also suggest investment opportunities based on your portfolio and risk preferences.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Synch Engine</h3>
+                <p>A powerful automation system that lets Ozark+ handle multiple tasks at once. It allows you to chat, trade, invest, and manage businesses simultaneously. With its new automation technology, it can perform complex workflows without delays, making your actions faster and smarter.</p>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section" id="plans">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Ozark (Standard)</h3>
+                    <div class="price"><span class="price-currency">€</span>0<span class="price-period">/month</span></div>
+                    <ul>
+                        <li>Limited AI Chat</li>
+                        <li>Basic Trading Analytics</li>
+                        <li>Simple Investment Suggestions</li>
+                        <li>Standard AI Engine</li>
+                        <li>Single-pillar access (Chatter)</li>
+                        <li>Community support</li>
+                    </ul>
+                    <a href="login-signup.html" class="btn btn-outline">Get Started</a>
+                </div>
+                <div class="pricing-card premium">
+                    <h3>Ozark+ (Premium)</h3>
+                    <div class="price"><span class="price-currency">€</span>49.99<span class="price-period">/month</span></div>
+                    <ul>
+                        <li>Unlimited, deeper AI Chat</li>
+                        <li>Trading Board - executes and manages trades</li>
+                        <li>Simultaneous Investments with Smart Tracking</li>
+                        <li>Comp-Maker - creates micro-businesses/SMEs</li>
+                        <li>Logo Generation & Visual Identity</li>
+                        <li>Advanced Business Ideation based on User Data</li>
+                        <li>The Synch Engine - run multiple tasks simultaneously</li>
+                        <li>Full three-pillar access (Chatter • Invest • Start businesses)</li>
+                        <li>Priority 24/7 support</li>
+                        <li>Early feature access</li>
+                        <li>VIP webinars and exclusive community</li>
+                    </ul>
+                    <a href="payementpremium.html" class="btn btn-premium">Upgrade Now</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Comparison Section -->
+        <section class="features-comparison">
+            <h2>Plan Comparison</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Ozark (Standard)</th>
+                        <th>Ozark+ (Premium)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">AI Chat</td>
+                        <td class="feature-value ozark">Limited</td>
+                        <td class="feature-value ozark-plus">Unlimited, deeper, more contextual</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Trading</td>
+                        <td class="feature-value ozark">Basic Analytics</td>
+                        <td class="feature-value ozark-plus">Trading Board → executes and manages trades simultaneously</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Investing</td>
+                        <td class="feature-value ozark">Simple Suggestions</td>
+                        <td class="feature-value ozark-plus">Simultaneous Investments with Smart Tracking</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Business Creation</td>
+                        <td class="feature-value no">Not Available</td>
+                        <td class="feature-value ozark-plus">Comp-Maker → creates micro-businesses or SMEs simultaneously</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Branding & Design</td>
+                        <td class="feature-value no">Not Available</td>
+                        <td class="feature-value ozark-plus">Logo Generation, Visual Identity, and Branding for Projects</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Business Ideas</td>
+                        <td class="feature-value ozark">Based on Simple Prompts</td>
+                        <td class="feature-value ozark-plus">Advanced Ideation based on User Data</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Internal Engine</td>
+                        <td class="feature-value ozark">Standard AI</td>
+                        <td class="feature-value ozark-plus">The Synch Engine → Run multiple tasks at the same time</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Pillars</td>
+                        <td class="feature-value ozark">Chatter</td>
+                        <td class="feature-value ozark-plus">Chatter • Invest • Start businesses (simultaneously)</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Pricing</td>
+                        <td class="feature-value ozark">Free</td>
+                        <td class="feature-value ozark-plus">49.99€/month</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>BusinessAi</h3>
+                <ul>
+                    <li><a href="index.php"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="index.php"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="index.php"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="index.php"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Developers</h3>
+                <ul>
+                    <li><a href="APIplatform.html"><i class="fas fa-chevron-right"></i> API Docs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> SDK Downloads</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Status</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="ozark_demo.html"><i class="fas fa-chevron-right"></i> Demo</a></li>
+                    <li><a href="login.php"><i class="fas fa-chevron-right"></i> Login</a></li>
+                    <li><a href="Premium Plans.html"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                    <li><a href="Enterprise.html"><i class="fas fa-chevron-right"></i> Enterprise</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BusinessAi. All rights reserved. <a href="#" style="color: var(--primary-color);">Privacy Policy</a> | <a href="#" style="color: var(--primary-color);">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Hide loader when page is loaded
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loader').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.loader').style.display = 'none';
+                }, 500);
+            }, 300);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#00c6ff"
+                },
+                shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#000000"
+                    }
+                },
+                opacity: {
+                    value: 0.3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.3,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#00c6ff",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 0.5
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+</body>
+</html>
