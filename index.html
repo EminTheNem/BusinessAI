@@ -1,0 +1,1860 @@
+<?php
+session_start();
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Vérifier si l'utilisateur est connecté
+$user_data = isset($_SESSION['user_data']) ? $_SESSION['user_data'] : null;
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BusinessAi - Your AI-powered financial advisor. Simplify your finances with AI Trader, your gateway to professional excellence.">
+    <meta name="keywords" content="BusinessAi, financial advisor, AI, AI Trader, financial assistance, investment">
+    <meta name="author" content="BusinessAi Team">
+    <title>BusinessAI</title>
+    <link rel="icon" type="image/png" href="OzarkOfficialFavicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --businessai-primary: #000000;
+        --ozark-primary: #8be1f6;
+        --primary-dark: #0055EE;
+        --primary-light: #4D88FF;
+        --secondary: #8B46FF;
+        --text-primary: #1A1A1A;
+        --text-secondary: #666666;
+        --text-tertiary: #999999;
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8FAFC;
+        --bg-tertiary: #F1F5F9;
+        --card-bg: rgba(255, 255, 255, 0.85);
+        --glass-bg: rgba(255, 255, 255, 0.25);
+        --glass-border: rgba(255, 255, 255, 0.4);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --shadow-primary: 0 4px 14px 0 rgba(139, 225, 246, 0.4);
+        --neumorph-light: 8px 8px 16px rgba(209, 217, 230, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.8);
+        --neumorph-dark: 8px 8px 16px rgba(0, 0, 0, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.15);
+        --border-radius-sm: 8px;
+        --border-radius-md: 12px;
+        --border-radius-lg: 16px;
+        --border-radius-xl: 24px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark-mode {
+        --text-primary: #FFFFFF;
+        --text-secondary: #CCCCCC;
+        --text-tertiary: #999999;
+        --bg-primary: #121212;
+        --bg-secondary: #1E1E1E;
+        --bg-tertiary: #2D2D2D;
+        --card-bg: rgba(30, 30, 30, 0.85);
+        --glass-bg: rgba(30, 30, 30, 0.25);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --neumorph-light: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(60, 60, 60, 0.5);
+    }
+
+    /* Global Styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        transition: var(--transition);
+        overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        margin-bottom: 1rem;
+        color: var(--text-secondary);
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .section {
+        padding: 100px 0;
+        position: relative;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 28px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: var(--border-radius-md);
+        cursor: pointer;
+        transition: var(--transition);
+        text-decoration: none;
+        border: none;
+        outline: none;
+        gap: 8px;
+    }
+
+    .btn-primary {
+        background: var(--ozark-primary);
+        color: #000;
+        box-shadow: var(--shadow-primary);
+    }
+
+    .btn-primary:hover {
+        background: #6ad1eb;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(139, 225, 246, 0.5);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--businessai-primary);
+        border: 2px solid var(--businessai-primary);
+    }
+
+    .btn-secondary:hover {
+        background: var(--businessai-primary);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .btn-glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        color: var(--text-primary);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn-glass:hover {
+        background: rgba(255, 255, 255, 0.35);
+        transform: translateY(-2px);
+    }
+
+    .card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius-lg);
+        padding: 32px;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .neumorph {
+        border-radius: var(--border-radius-lg);
+        background: var(--bg-secondary);
+        box-shadow: var(--neumorph-light);
+        transition: var(--transition);
+    }
+
+    .neumorph:hover {
+        box-shadow: var(--neumorph-dark);
+    }
+
+    .glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        border-radius: var(--border-radius-lg);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .skeuomorph {
+        background: var(--card-bg);
+        border-radius: var(--border-radius-lg);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .skeuomorph::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Navigation */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 0;
+        z-index: 1000;
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--glass-border);
+        transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+        padding: 15px 0;
+        box-shadow: var(--shadow-md);
+    }
+
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--businessai-primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--businessai-primary);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .nav-link {
+        color: var(--text-primary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--businessai-primary);
+        transition: var(--transition);
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    .nav-link:hover {
+        color: var(--businessai-primary);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 15% 50%, rgba(139, 225, 246, 0.15) 0%, transparent 25%),
+            radial-gradient(circle at 85% 30%, rgba(139, 70, 255, 0.1) 0%, transparent 25%);
+        z-index: 0;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, var(--businessai-primary) 0%, var(--ozark-primary) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        margin-bottom: 40px;
+        max-width: 600px;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 60px;
+    }
+
+    .hero-visual {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50%;
+        max-width: 600px;
+        z-index: 1;
+    }
+
+    .floating-card {
+        position: absolute;
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius-lg);
+        padding: 24px;
+        box-shadow: var(--shadow-xl);
+        border: 1px solid var(--glass-border);
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-card:nth-child(1) {
+        top: 20%;
+        right: 10%;
+        animation-delay: 0s;
+        width: 200px;
+    }
+
+    .floating-card:nth-child(2) {
+        top: 50%;
+        right: 25%;
+        animation-delay: 2s;
+        width: 240px;
+    }
+
+    .floating-card:nth-child(3) {
+        top: 30%;
+        right: 45%;
+        animation-delay: 4s;
+        width: 180px;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+    /* About Section */
+    .about {
+        background: var(--bg-secondary);
+        position: relative;
+    }
+
+    .about::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 75% 75%, rgba(139, 225, 246, 0.05) 0%, transparent 50%);
+        z-index: 0;
+    }
+
+    .about-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+    }
+
+    .section-subtitle {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+    }
+
+    .about-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 32px;
+    }
+
+    .about-card-icon {
+        width: 64px;
+        height: 64px;
+        background: var(--ozark-primary);
+        border-radius: var(--border-radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        color: #000;
+        font-size: 1.5rem;
+    }
+
+    .about-card-title {
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+    }
+
+    .about-card-text {
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+    }
+
+    /* Services Section */
+    .services {
+        background: var(--bg-primary);
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+    }
+
+    .service-card {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition: var(--transition);
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+    }
+
+    .service-icon {
+        font-size: 2.5rem;
+        margin-bottom: 24px;
+        color: var(--ozark-primary);
+        background: rgba(139, 225, 246, 0.1);
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .service-title {
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+    }
+
+    .service-description {
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+        flex-grow: 1;
+    }
+
+    /* Contact Section */
+    .contact {
+        background: var(--bg-secondary);
+        position: relative;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .contact-method {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .contact-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--ozark-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .contact-details h3 {
+        font-size: 1.25rem;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+    }
+
+    .contact-details p, .contact-details a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .contact-details a:hover {
+        color: var(--businessai-primary);
+    }
+
+    .contact-form {
+        padding: 40px;
+    }
+
+    .form-group {
+        margin-bottom: 24px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--text-primary);
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 16px;
+        border-radius: var(--border-radius-md);
+        border: 1px solid var(--text-tertiary);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 1rem;
+        transition: var(--transition);
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--businessai-primary);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea.form-input {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+        text-align: center;
+        padding: 80px 0;
+        background: linear-gradient(135deg, var(--businessai-primary) 0%, var(--ozark-primary) 100%);
+        color: white;
+    }
+
+    .newsletter-title {
+        color: white;
+        margin-bottom: 16px;
+    }
+
+    .newsletter-text {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+        gap: 16px;
+    }
+
+    .newsletter-input {
+        flex-grow: 1;
+        padding: 16px;
+        border-radius: var(--border-radius-md);
+        border: none;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    .newsletter-input:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+        background: var(--bg-tertiary);
+        padding: 80px 0 40px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .footer-logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--businessai-primary);
+    }
+
+    .footer-text {
+        color: var(--text-secondary);
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .social-link {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--bg-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .social-link:hover {
+        background: var(--businessai-primary);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    .footer-title {
+        font-size: 1.125rem;
+        margin-bottom: 24px;
+        color: var(--text-primary);
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-link {
+        margin-bottom: 12px;
+    }
+
+    .footer-link a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .footer-link a:hover {
+        color: var(--businessai-primary);
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 40px;
+        border-top: 1px solid var(--text-tertiary);
+    }
+
+    .footer-copyright {
+        color: var(--text-secondary);
+    }
+
+    /* Utility Classes */
+    .text-center {
+        text-align: center;
+    }
+
+    .mt-20 {
+        margin-top: 20px;
+    }
+
+    .mt-40 {
+        margin-top: 40px;
+    }
+
+    .mb-20 {
+        margin-bottom: 20px;
+    }
+
+    .mb-40 {
+        margin-bottom: 40px;
+    }
+
+    .non-clickable {
+        opacity: 0.7;
+        cursor: not-allowed;
+        color: var(--text-tertiary) !important;
+    }
+
+    .sticker {
+        position: relative;
+        display: inline-block;
+    }
+
+    .sticker::after {
+        content: 'COMING SOON';
+        position: absolute;
+        top: -12px;
+        right: -15px;
+        background: #FF3A3A;
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 15px;
+        transform: rotate(10deg);
+        white-space: nowrap;
+        box-shadow: 0 3px 10px rgba(255, 58, 58, 0.4);
+    }
+    /* Stock Market Section Styles */
+.stock-market {
+    background: var(--bg-primary);
+    position: relative;
+}
+
+.stock-market::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 75% 25%, rgba(139, 225, 246, 0.05) 0%, transparent 50%);
+    z-index: 0;
+}
+
+.stock-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.stock-card {
+    padding: 24px;
+    transition: var(--transition);
+}
+
+.stock-card:hover {
+    transform: translateY(-5px);
+}
+
+.stock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.stock-symbol {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.stock-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stock-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+.stock-change.positive {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+}
+
+.stock-change.negative {
+    background: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+}
+
+.stock-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stock-detail {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+}
+
+.stock-detail .label {
+    color: var(--text-secondary);
+}
+
+.stock-detail .value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Add this to your existing media queries */
+@media (max-width: 768px) {
+    .stock-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .hero-title {
+            font-size: 2.8rem;
+        }
+        
+        .hero-visual {
+            display: none;
+        }
+        
+        .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 15px 0;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 80px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        
+        .nav-links.active {
+            left: 0;
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+        }
+        
+        .hero-title {
+            font-size: 2.2rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .hero-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section {
+            padding: 70px 0;
+        }
+        
+        .newsletter-form {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .about-grid,
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .contact-form {
+            padding: 24px;
+        }
+    }
+    </style>  
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="logo">
+                <span>BusinessAI</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <span class="nav-link non-clickable">API</span>
+                <span class="nav-link non-clickable">Premium</span>
+                
+                <?php if(isset($user_data)): ?>
+                <?php else: ?>
+                    <a href="login.php" class="btn btn-secondary">Log In</a>
+                    <a href="signup.php" class="btn btn-primary">Sign Up</a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Ozark is the Next-Gen Financial Intelligence</h1>
+                <p class="hero-subtitle">Leverage cutting-edge artificial intelligence to optimize your financial decisions and maximize your investment potential with BusinessAI's Ozark platform.</p>
+                <div class="hero-actions">
+                    <a href="ozark_demo.html" class="btn btn-primary">Try Demo</a>
+                    <a href="#services" class="btn btn-glass">Explore Services</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="floating-card neumorph">
+                <h4>Portfolio Analysis</h4>
+                <p>+12.7% growth</p>
+            </div>
+            <div class="floating-card glass">
+                <h4>Market Trends</h4>
+                <p>AI-detected opportunities</p>
+            </div>
+            <div class="floating-card skeuomorph">
+                <h4>Risk Assessment</h4>
+                <p>Low risk profile</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About BusinessAI</h2>
+                <p class="section-subtitle">Transforming financial management through artificial intelligence and machine learning with our Ozark platform</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="card about-card">
+                    <div class="about-card-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="about-card-title">Our Mission</h3>
+                    <p class="about-card-text">Democratize access to institutional-grade financial analysis through cutting-edge AI technology.</p>
+                    <a href="our_mission.html" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <div class="card about-card">
+                    <div class="about-card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="about-card-title">Our Vision</h3>
+                    <p class="about-card-text">Create a future where everyone can make informed financial decisions with confidence.</p>
+                    <a href="our_vision.html" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <div class="card about-card">
+                    <div class="about-card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="about-card-title">Our Approach</h3>
+                    <p class="about-card-text">Combine sophisticated AI algorithms with comprehensive market data for unparalleled insights.</p>
+                    <a href="our_approach.html" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- ADD THE STOCK MARKET SECTION RIGHT HERE -->
+<!-- Replace your current stock market section with this code -->
+<section class="section stock-market" id="stock-market">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Market Overview</h2>
+            <p class="section-subtitle">End of Day data powered by MarketStack API</p>
+            <div class="last-updated">
+                Last updated: <span id="last-updated-time"><?php echo date('Y-m-d H:i:s'); ?></span>
+                <button id="refresh-market-data" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+        </div>
+        
+        <div class="market-tabs">
+            <button class="tab-btn active" data-category="us">US Markets</button>
+            <button class="tab-btn" data-category="tech">Tech Stocks</button>
+            <button class="tab-btn" data-category="europe">European</button>
+        </div>
+        
+        <div class="market-table-container card">
+            <div class="table-responsive">
+                <table class="market-table">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Change</th>
+                            <th>Change %</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>Volume</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="market-data">
+                        <?php
+                        // MarketStack API Configuration
+                        $api_key = 'API_KEY'; // _____________________________________________________________________________________________________Replace with your actual API key
+                        
+                        // Define stocks by categories
+                        $stock_categories = [
+                            'us' => ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'JPM', 'V', 'WMT'],
+                            'tech' => ['AAPL', 'MSFT', 'GOOGL', 'META', 'NVDA', 'ADBE', 'INTC', 'CSCO'],
+                            'europe' => ['SAP.DE', 'ASML.AS', 'HSBA.L', 'AIR.PA', 'MC.PA', 'SIE.DE', 'BBVA.MC']
+                        ];
+                        
+                        // Function to fetch stock data
+                        function fetchStockData($symbol, $api_key) {
+                            $url = "http://api.marketstack.com/v1/eod/latest?access_key={$api_key}&symbols={$symbol}";
+                            $ch = curl_init();
+                            curl_setopt($ch, CURLOPT_URL, $url);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch, CURLOPT_HEADER, false);
+                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+                            $response = curl_exec($ch);
+                            curl_close($ch);
+                            return json_decode($response, true);
+                        }
+                        
+                        // Function to get stock name from symbol
+                        function getStockName($symbol) {
+                            $stock_names = [
+                                'AAPL' => 'Apple Inc.',
+                                'MSFT' => 'Microsoft Corp.',
+                                'GOOGL' => 'Alphabet Inc.',
+                                'AMZN' => 'Amazon.com Inc.',
+                                'TSLA' => 'Tesla Inc.',
+                                'JPM' => 'JPMorgan Chase & Co.',
+                                'V' => 'Visa Inc.',
+                                'WMT' => 'Walmart Inc.',
+                                'META' => 'Meta Platforms Inc.',
+                                'NVDA' => 'NVIDIA Corp.',
+                                'ADBE' => 'Adobe Inc.',
+                                'INTC' => 'Intel Corp.',
+                                'CSCO' => 'Cisco Systems Inc.',
+                                'SAP.DE' => 'SAP SE',
+                                'ASML.AS' => 'ASML Holding NV',
+                                'HSBA.L' => 'HSBC Holdings',
+                                'AIR.PA' => 'Airbus SE',
+                                'MC.PA' => 'LVMH Moet Hennessy',
+                                'SIE.DE' => 'Siemens AG',
+                                'BBVA.MC' => 'Banco Bilbao Vizcaya'
+                            ];
+                            
+                            return $stock_names[$symbol] ?? $symbol;
+                        }
+                        
+                        // Fetch and display data for US stocks by default
+                        foreach ($stock_categories['us'] as $symbol) {
+                            $data = fetchStockData($symbol, $api_key);
+                            if (isset($data['data'][0])) {
+                                $stock = $data['data'][0];
+                                $change = $stock['change'] ?? 0;
+                                $change_percent = $stock['change_percent'] ?? 0;
+                                $is_positive = $change >= 0;
+                                $change_class = $is_positive ? 'positive' : 'negative';
+                                $change_icon = $is_positive ? 'fa-arrow-up' : 'fa-arrow-down';
+                                
+                                echo "<tr data-symbol='{$symbol}' data-category='us'>";
+                                echo "<td class='symbol'>{$symbol}</td>";
+                                echo "<td class='name'>" . getStockName($symbol) . "</td>";
+                                echo "<td class='price'>$" . number_format($stock['close'], 2) . "</td>";
+                                echo "<td class='change {$change_class}'><i class='fas {$change_icon}'></i> " . number_format($change, 2) . "</td>";
+                                echo "<td class='change-percent {$change_class}'>" . number_format($change_percent, 2) . "%</td>";
+                                echo "<td class='high'>$" . number_format($stock['high'], 2) . "</td>";
+                                echo "<td class='low'>$" . number_format($stock['low'], 2) . "</td>";
+                                echo "<td class='volume'>" . number_format($stock['volume']) . "</td>";
+                                echo "<td class='actions'><button class='btn-chart' data-symbol='{$symbol}'><i class='fas fa-chart-line'></i></button></td>";
+                                echo "</tr>";
+                            } else {
+                                echo "<tr data-symbol='{$symbol}' data-category='us'>";
+                                echo "<td class='symbol'>{$symbol}</td>";
+                                echo "<td class='name'>" . getStockName($symbol) . "</td>";
+                                echo "<td colspan='7' class='error'>Data not available</td>";
+                                echo "</tr>";
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="market-footer">
+            <div class="market-summary card">
+                <div class="summary-item">
+                    <span class="label">Advancers</span>
+                    <span class="value positive" id="advancers-count">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Decliners</span>
+                    <span class="value negative" id="decliners-count">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Unchanged</span>
+                    <span class="value" id="unchanged-count">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Stock Market Section Styles */
+.stock-market {
+    background: var(--bg-primary);
+    position: relative;
+}
+
+.stock-market::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 75% 25%, rgba(139, 225, 246, 0.05) 0%, transparent 50%);
+    z-index: 0;
+}
+
+.last-updated {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.refresh-btn {
+    background: var(--ozark-primary);
+    color: #000;
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: 8px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.refresh-btn:hover {
+    background: #6ad1eb;
+}
+
+.refresh-btn.rotating i {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.market-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background: var(--ozark-primary);
+    color: #000;
+}
+
+.market-table-container {
+    padding: 0;
+    overflow: hidden;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.market-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.market-table th {
+    background: var(--bg-tertiary);
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--glass-border);
+}
+
+.market-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.market-table tr:hover {
+    background: rgba(139, 225, 246, 0.1);
+}
+
+.market-table .symbol {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.market-table .name {
+    color: var(--text-secondary);
+}
+
+.market-table .price {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.market-table .change, .market-table .change-percent {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.market-table .positive {
+    color: #10B981;
+}
+
+.market-table .negative {
+    color: #EF4444;
+}
+
+.market-table .high, .market-table .low {
+    color: var(--text-secondary);
+}
+
+.market-table .volume {
+    color: var(--text-secondary);
+    font-family: monospace;
+}
+
+.market-table .actions {
+    text-align: center;
+}
+
+.btn-chart {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-chart:hover {
+    background: var(--ozark-primary);
+    color: #000;
+}
+
+.market-footer {
+    margin-top: 30px;
+}
+
+.market-summary {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.summary-item .label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.summary-item .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Animation for price updates */
+@keyframes highlight {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(16, 185, 129, 0.2); }
+    100% { background-color: transparent; }
+}
+
+.price-update {
+    animation: highlight 1s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .market-table th:nth-child(6),
+    .market-table td:nth-child(6),
+    .market-table th:nth-child(7),
+    .market-table td:nth-child(7) {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .market-table th:nth-child(2),
+    .market-table td:nth-child(2),
+    .market-table th:nth-child(8),
+    .market-table td:nth-child(8) {
+        display: none;
+    }
+    
+    .market-summary {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .market-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .market-table th:nth-child(5),
+    .market-table td:nth-child(5) {
+        display: none;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const refreshBtn = document.getElementById('refresh-market-data');
+    const lastUpdatedEl = document.getElementById('last-updated-time');
+    const marketDataEl = document.getElementById('market-data');
+    const advancersCountEl = document.getElementById('advancers-count');
+    const declinersCountEl = document.getElementById('decliners-count');
+    const unchangedCountEl = document.getElementById('unchanged-count');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    
+    // Count stock movements
+    function updateMarketSummary() {
+        const positiveChanges = document.querySelectorAll('.market-table .positive').length / 2;
+        const negativeChanges = document.querySelectorAll('.market-table .negative').length / 2;
+        const totalRows = document.querySelectorAll('.market-table tbody tr').length;
+        const unchanged = totalRows - positiveChanges - negativeChanges;
+        
+        advancersCountEl.textContent = positiveChanges;
+        declinersCountEl.textContent = negativeChanges;
+        unchangedCountEl.textContent = unchanged;
+    }
+    
+    // Initialize summary
+    updateMarketSummary();
+    
+    // Tab switching functionality
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            const category = this.getAttribute('data-category');
+            const rows = document.querySelectorAll('.market-table tbody tr');
+            
+            rows.forEach(row => {
+                if (row.getAttribute('data-category') === category) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Refresh market data
+    refreshBtn.addEventListener('click', function() {
+        // Show loading animation
+        this.classList.add('rotating');
+        
+        // Simulate API call (in a real scenario, you would use AJAX to fetch new data)
+        setTimeout(() => {
+            // Update last updated time
+            const now = new Date();
+            lastUpdatedEl.textContent = now.toLocaleString();
+            
+            // Simulate price changes for demo purposes
+            const priceCells = document.querySelectorAll('.market-table .price');
+            const changeCells = document.querySelectorAll('.market-table .change');
+            const changePercentCells = document.querySelectorAll('.market-table .change-percent');
+            
+            priceCells.forEach(cell => {
+                const currentPrice = parseFloat(cell.textContent.replace('$', ''));
+                const change = (Math.random() - 0.5) * 2; // Random change between -1 and 1
+                const newPrice = currentPrice + change;
+                
+                cell.textContent = '$' + newPrice.toFixed(2);
+                cell.classList.add('price-update');
+                
+                // Remove animation class after animation completes
+                setTimeout(() => {
+                    cell.classList.remove('price-update');
+                }, 1000);
+            });
+            
+            // Update change and change percentage cells
+            for (let i = 0; i < changeCells.length; i++) {
+                const changeCell = changeCells[i];
+                const changePercentCell = changePercentCells[i];
+                
+                // Skip if these cells contain error messages
+                if (changeCell.classList.contains('error')) continue;
+                
+                const change = (Math.random() - 0.5) * 4; // Random change between -2 and 2
+                const changePercent = (Math.random() - 0.5) * 3; // Random change between -1.5 and 1.5
+                
+                const isPositive = change >= 0;
+                const changeClass = isPositive ? 'positive' : 'negative';
+                const changeIcon = isPositive ? 'fa-arrow-up' : 'fa-arrow-down';
+                
+                // Update classes
+                changeCell.className = 'change ' + changeClass;
+                changePercentCell.className = 'change-percent ' + changeClass;
+                
+                // Update content
+                changeCell.innerHTML = '<i class="fas ' + changeIcon + '"></i> ' + change.toFixed(2);
+                changePercentCell.textContent = changePercent.toFixed(2) + '%';
+            }
+            
+            // Update market summary
+            updateMarketSummary();
+            
+            // Remove loading animation
+            refreshBtn.classList.remove('rotating');
+        }, 1500); // Simulate network delay
+    });
+    
+    // Chart button functionality
+    document.querySelectorAll('.btn-chart').forEach(button => {
+        button.addEventListener('click', function() {
+            const symbol = this.getAttribute('data-symbol');
+            alert('Chart view for ' + symbol + ' would open here. In a real implementation, this would show a detailed chart.');
+        });
+    });
+});
+</script>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Discover how BusinessAI's Ozark platform can transform your financial strategy with our comprehensive suite of AI-powered tools</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="card service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="service-title">AI-Powered Assistance</h3>
+                    <p class="service-description">Get personalized financial advice 24/7 from our advanced AI system, tailored to your specific goals and risk tolerance.</p>
+                    <a href="ai_powered_assistance.html" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <div class="card service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="service-title">Market Analysis</h3>
+                    <p class="service-description">Real-time insights and predictive analytics to help you stay ahead of market trends and make informed decisions.</p>
+                    <a href="comprehensive_financial.html" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <div class="card service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="service-title">Portfolio Management</h3>
+                    <p class="service-description">Automated optimization of your investment portfolio based on your financial objectives and market conditions.</p>
+                    <a href="portfolio.html" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <div class="card service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="service-title">Financial Education</h3>
+                    <p class="service-description">Interactive learning modules to build your financial literacy and confidence in managing your money.</p>
+                    <a href="education.html" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <div class="card service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="service-title">Risk Assessment</h3>
+                    <p class="service-description">Comprehensive evaluation of your financial vulnerabilities with actionable recommendations to protect your assets.</p>
+                    <a href="risk_assessement.html" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <div class="card service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="service-title">Startup Team</h3>
+                    <p class="service-description">Meet the innovative minds behind BusinessAI and learn about our vision for the future of finance.</p>
+                    <a href="startup_team.html" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Have questions or want to learn more about our services? Reach out to our team</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Location</h3>
+                            <p>72100, 18 Rue Laplace</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Phone</h3>
+                            <p><a href="tel:+33 7 62 45 47 68">+33 7 62 45 47 68</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p><a href="mailto:businessaiassistance@gmail.com">businessaiassistance@gmail.com</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Business Hours</h3>
+                            <p>Monday - Friday: 9am - 6pm EST</p>
+                            <p>Saturday: 10am - 2pm EST</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" name="subject" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" name="message" class="form-input" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2 class="newsletter-title">Stay Updated with BusinessAI</h2>
+            <p class="newsletter-text">Subscribe to our newsletter to receive the latest updates, insights, and tips on AI-powered financial management.</p>
+            
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-glass">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">BusinessAI</div>
+                    <p class="footer-text">Empowering financial decisions through artificial intelligence with our Ozark platform.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Company</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#about">About Us</a></li>
+                        <li class="footer-link"><a href="#services">Services</a></li>
+                        <li class="footer-link"><a href="#">Careers</a></li>
+                        <li class="footer-link"><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Resources</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Blog</a></li>
+                        <li class="footer-link"><a href="#">Guides</a></li>
+                        <li class="footer-link"><a href="#">Webinars</a></li>
+                        <li class="footer-link"><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                        <li class="footer-link"><a href="#">Terms of Service</a></li>
+                        <li class="footer-link"><a href="#">Cookie Policy</a></li>
+                        <li class="footer-link"><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2023 BusinessAI. All rights reserved. Ozark is a product of BusinessAI.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    
+    // Navbar Scroll Effect
+    const navbar = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    
+    // Close mobile menu when clicking on a nav link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+    });
+    
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        this.reset();
+    });
+    
+    // Dark Mode Toggle (optional)
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.zIndex = '1000';
+    darkModeToggle.classList.add('btn', 'btn-primary');
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        darkModeToggle.innerHTML = document.body.classList.contains('dark-mode') ? 
+            '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
+    document.body.appendChild(darkModeToggle);
+    </script>
+</body>
+
+</html>
